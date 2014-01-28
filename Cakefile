@@ -16,8 +16,8 @@ unless process.env.NODE_DISABLE_COLORS
 # Built file header.
 header = """
   /**
-   * IcedCoffeeScript Compiler v#{CoffeeScript.VERSION}
-   * http://iced-coffee-script.github.io/iced-coffee-script
+   * Pencil Code IcedCoffeeScript Compiler v#{CoffeeScript.VERSION}
+   * https://github.com/PencilCode/pencil-coffee-script
    *
    * Copyright 2011, Jeremy Ashkenas, Maxwell Krohn
    * Released under the MIT License

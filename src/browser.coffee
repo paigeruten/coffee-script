@@ -5,7 +5,9 @@
 
 CoffeeScript = require './coffee-script'
 CoffeeScript.require = require
+CoffeeScript.code = {}
 compile = CoffeeScript.compile
+compileCount = 0
 
 # Use standard JavaScript `eval` to eval code.
 CoffeeScript.eval = (code, options = {}) ->
@@ -26,10 +28,17 @@ return unless window?
 # Ported from https://developer.mozilla.org/en-US/docs/DOM/window.btoa
 if btoa? and JSON? and unescape? and encodeURIComponent?
   compile = (code, options = {}) ->
+    name = "coffeescript-#{compileCount++}.js"
     options.sourceMap = true
     options.inline = true
-    {js, v3SourceMap} = CoffeeScript.compile code, options
-    "#{js}\n//# sourceMappingURL=data:application/json;base64,#{btoa unescape encodeURIComponent v3SourceMap}\n//# sourceURL=coffeescript"
+    try
+      {js, v3SourceMap} = CoffeeScript.compile code, options
+    catch error
+      if error instanceof SyntaxError
+        CoffeeScript.code[name] = {syntaxError: error}
+      throw error
+    CoffeeScript.code[name] = {coffee: code, map: v3SourceMap, js: js}
+    "#{js}\n//# sourceMappingURL=data:application/json;base64,#{btoa unescape encodeURIComponent v3SourceMap}\n//# sourceURL=#{name}"
 
 # Load a remote script from the current domain via XHR.
 CoffeeScript.load = (url, callback, options = {}, hold = false) ->
