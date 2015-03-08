@@ -190,10 +190,12 @@ grammar =
 
   # The **Code** node is the function literal. It's defined by an indented block
   # of **Block** preceded by a function arrow, with an optional parameter
-  # list.
+  # list, and an optional `async` keyword.
   Code: [
-    o 'PARAM_START ParamList PARAM_END FuncGlyph Block', -> new Code $2, $5, $4
-    o 'FuncGlyph Block',                        -> new Code [], $2, $1
+    o 'PARAM_START ParamList PARAM_END FuncGlyph Block',       -> new Code $2, $5, $4, off
+    o 'PARAM_START ParamList PARAM_END ASYNC FuncGlyph Block', -> new Code $2, $6, $5, on
+    o 'FuncGlyph Block',                                       -> new Code [], $2, $1, off
+    o 'ASYNC FuncGlyph Block',                                 -> new Code [], $3, $2, on
   ]
 
   # CoffeeScript has two different symbols for functions. `->` is for ordinary

@@ -102,6 +102,8 @@ exports.Lexer = class Lexer
     return 0 unless match = IDENTIFIER.exec @chunk
     [input, id, colon] = match
 
+    @tagParameters() if id is 'async'
+
     # Preserve length of id for location data
     idLength = id.length
     poppedToken = undefined
@@ -742,7 +744,7 @@ JS_KEYWORDS = [
 COFFEE_KEYWORDS = ['undefined', 'then', 'unless', 'until', 'loop', 'of', 'by', 'when'] 
 
 # iced additions
-COFFEE_KEYWORDS = COFFEE_KEYWORDS.concat [ 'await', 'defer' ]
+COFFEE_KEYWORDS = COFFEE_KEYWORDS.concat [ 'await', 'defer', 'async' ]
 
 COFFEE_ALIAS_MAP =
   and  : '&&'
