@@ -233,7 +233,7 @@
     for (_i = 0, _len = fragments.length; _i < _len; _i++) {
       fragment = fragments[_i];
       if (options.sourceMap) {
-        if (fragment.locationData) {
+        if (fragment.locationData && !/^[;\s]*$/.test(fragment.code)) {
           map.add([fragment.locationData.first_line, fragment.locationData.first_column], [currentLine, currentColumn], {
             noReplace: true
           });
@@ -8314,8 +8314,7 @@ module.exports = function(arr, obj){
     catchExceptions: 'catchExceptions',
     runtime_modes: ["node", "inline", "window", "none", "browserify", "interp"],
     trampoline: "trampoline",
-    context: "context",
-    defer_arg: "__iced_defer_"
+    context: "context"
   };
 
 }).call(this);
