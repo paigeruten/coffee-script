@@ -8314,7 +8314,8 @@ module.exports = function(arr, obj){
     catchExceptions: 'catchExceptions',
     runtime_modes: ["node", "inline", "window", "none", "browserify", "interp"],
     trampoline: "trampoline",
-    context: "context"
+    context: "context",
+    defer_arg: "__iced_defer_"
   };
 
 }).call(this);
@@ -8873,5 +8874,5 @@ module.exports = function(arr, obj){
 },{"./const":17,"FWaASH":14}]},{},[1])
 (1)
 });
-root.CoffeeScript = CoffeeScript;
+if (typeof CoffeeScript !== 'undefined') { root.CoffeeScript = CoffeeScript; }
 })(this);

@@ -146,7 +146,7 @@ task 'build:browser', 'rebuild the merged script for inclusion in the browser', 
   b.add "./lib/coffee-script/browser.js"
   await b.bundle { standalone : 'CoffeeScript' }, defer err, code
   console.error err if err?
-  code = "(function(root){\n" + code + "\nroot.CoffeeScript = CoffeeScript;\n})(this);"
+  code = "(function(root){\n" + code + "\nif (typeof CoffeeScript !== 'undefined') { root.CoffeeScript = CoffeeScript; }\n})(this);"
 
   fs.writeFileSync outFileName(false), header + '\n' + code
   unless process.env.MINIFY is 'false'
