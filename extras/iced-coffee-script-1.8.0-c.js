@@ -8874,5 +8874,4 @@ module.exports = function(arr, obj){
 },{"./const":17,"FWaASH":14}]},{},[1])
 (1)
 });
-if (typeof CoffeeScript !== 'undefined') { root.CoffeeScript = CoffeeScript; }
 })(this);
